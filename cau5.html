@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Care Service</title>
+  <style>
+    body {
+      width: 100%;
+    overflow-x: hidden;
+    }
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+
+    header {
+      background-color: #f8f8f8;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navbar ul li {
+      display: inline;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .navbar ul li:hover{
+      color: rgb(248, 91, 91);;
+    }
+
+    .slogan {
+      color: #666;
+      font-style: italic;
+      margin-top: 5px;
+    }
+
+    .banner {
+      background-color: rgb(245, 78, 78);
+      height: 200px;
+      margin: 20px;
+      border: 2px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      transition: 0.3s ease;
+    }
+
+    .banner:hover {
+      background-color: rgb(254, 46, 46);
+      border-color: rgb(254, 46, 46);
+      transform: scale(1.02);
+    }
+
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      background-color: rgb(225, 227, 221);
+    }
+
+    .item img {
+      width: 100%;
+      height: auto;
+      margin-top: 5px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 30px auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      padding: 10px 20px;
+    }
+
+    footer {
+      text-align: center;
+      background: #eee;
+      padding: 10px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pet Care Service</h1>
+    <div class="slogan">Chăm sóc thú cưng tận tâm, chuyên nghiệp</div>
+    <nav class="navbar">
+      <ul>
+        <li>Trang chủ</li>
+        <li>Dịch vụ</li>
+        <li>Liên hệ</li>
+        <li>Giới thiệu</li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="banner">
+    Ưu đãi tháng 5 - Giảm 20% cho dịch vụ tắm gội!
+  </div>
+
+  <h2 style="text-align:center;">Danh sách dịch vụ</h2>
+  <div id="service-info" class="services"></div>
+
+  <form id="register-form">
+    <h2>Đăng ký dịch vụ</h2>
+    <div>
+      <label for="name">Họ tên:</label>
+      <input type="text" id="name" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+    </div>
+    <div>
+      <label for="message">Nội dung:</label>
+      <textarea id="message" required></textarea>
+    </div>
+    <button type="submit">Gửi đăng ký</button>
+  </form>
+
+  <footer>
+    Họ tên: Nguyễn Thi Tham - MSSV: 12345678 - Lớp: CNTT
+  </footer>
+
+  <script>
+    const jsonString = `[
+      {
+        "ten": "Tắm gội thú cưng",
+        "anh": "./image/tam-goi.jpg",
+        "mo_ta": "Dịch vụ tắm sạch, sấy khô và thơm tho.",
+        "gia": "150000"
+      },
+      {
+        "ten": "Cắt tỉa lông",
+        "anh": "./image/cat-tia.png",
+        "mo_ta": "Tạo kiểu lông gọn gàng, thời trang.",
+        "gia": "200000"
+      },
+      {
+        "ten": "Khám sức khỏe",
+        "anh": "./image/suc-khoe.jpg",
+        "mo_ta": "Kiểm tra tổng quát và tư vấn dinh dưỡng.",
+        "gia": "300000"
+      },
+      {
+        "ten": "Trông giữ thú cưng",
+        "anh": "./image/trong-giu.jpg",
+        "mo_ta": "Giữ thú cưng an toàn khi bạn bận.",
+        "gia": "250000"
+      }
+    ]`;
+
+    const services = JSON.parse(jsonString);
+    const container = document.getElementById("service-info");
+    let html = "";
+
+    services.forEach(s => {
+      html += `
+        <div class="item">
+          <h3>${s.ten}</h3>
+          <img src="${s.anh}" alt="${s.ten}">
+          <p>${s.mo_ta}</p>
+          <p><strong>Giá:</strong> ${s.gia} VND</p>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    // Form validation
+    document.getElementById("register-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message").value.trim();
+
+      if (!name || !email || !msg) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+      }
+
+      alert("Đăng ký thành công!");
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
